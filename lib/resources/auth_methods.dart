@@ -54,8 +54,15 @@ class AuthMethods {
 
         res = "success";
       }
-    } catch (err) {
-      res = err.toString();
+    }
+    on FirebaseAuthException catch (err) {
+      if (err.code == 'invalid-email') {
+        res = 'Please input a valid email.';
+      } else if (err.code == 'weak-password') {
+        res = 'Password should be at least 6 characters';
+      } else if (err.code == 'email-already-in-use') {
+        res = 'The email is already in use by another account.';
+      }
     }
     return res;
   }
