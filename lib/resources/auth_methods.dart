@@ -53,15 +53,40 @@ class AuthMethods {
         // });
 
         res = "success";
+      } else {
+        res = "Please enter all the fields";
       }
-    }
-    on FirebaseAuthException catch (err) {
+    } on FirebaseAuthException catch (err) {
       if (err.code == 'invalid-email') {
         res = 'Please input a valid email.';
       } else if (err.code == 'weak-password') {
         res = 'Password should be at least 6 characters';
       } else if (err.code == 'email-already-in-use') {
         res = 'The email is already in use by another account.';
+      }
+    }
+    return res;
+  }
+
+  // loggin in user
+  Future<String> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    String res = "Some error occurred";
+
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        res = "success";
+      } else {
+        res = "Please enter all the fields";
+      }
+    }
+    on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-credential') {
+        res = "Login information invalid";
       }
     }
     return res;
