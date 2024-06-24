@@ -83,11 +83,12 @@ class AuthMethods {
       } else {
         res = "Please enter all the fields";
       }
-    }
-    on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-credential') {
         res = "Login information invalid";
       }
+    } catch (err) {
+      res = err.toString();
     }
     return res;
   }
