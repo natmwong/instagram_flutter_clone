@@ -2,5 +2,6 @@
     "editor.formatOnSave": false,
     "[dart]": {
         "editor.formatOnSave": false
-    }
+    },
+    "dart.openDevTools": "never"
 }
