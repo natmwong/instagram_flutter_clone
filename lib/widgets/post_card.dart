@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:instagram_flutter/models/user.dart";
 import "package:instagram_flutter/providers/user_provider.dart";
 import "package:instagram_flutter/resources/firestore_methods.dart";
+import "package:instagram_flutter/screens/comments_screen.dart";
 import "package:instagram_flutter/utils/colors.dart";
 import "package:instagram_flutter/widgets/like_animation.dart";
 import "package:intl/intl.dart";
@@ -151,16 +152,22 @@ class _PostCardState extends State<PostCard> {
                       widget.snap['likes'],
                     );
                   },
-                  icon: widget.snap['likes'].contains(user.uid) ? const Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                  ): const Icon(
-                    Icons.favorite_border,
-                  ),
+                  icon: widget.snap['likes'].contains(user.uid)
+                      ? const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        )
+                      : const Icon(
+                          Icons.favorite_border,
+                        ),
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CommentsScreen(),
+                  ),
+                ),
                 icon: const Icon(
                   Icons.comment_outlined,
                 ),
