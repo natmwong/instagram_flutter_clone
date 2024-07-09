@@ -58,8 +58,8 @@ class FirestoreMethods {
     }
   }
 
-  Future<void> postComment(
-      String postId, String text, String uid, String name, String profilePic) async {
+  Future<void> postComment(String postId, String text, String uid, String name,
+      String profilePic) async {
     try {
       if (text.isNotEmpty) {
         String commentId = const Uuid().v1();
@@ -81,6 +81,14 @@ class FirestoreMethods {
       }
     } catch (e) {
       print(e.toString());
+    }
+  }
+
+  Future<void> deletePost(String postId) async {
+    try {
+      await _firestore.collection('posts').doc(postId).delete();
+    } catch (err) {
+      print(err.toString());
     }
   }
 }
