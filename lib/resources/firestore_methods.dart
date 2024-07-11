@@ -91,4 +91,45 @@ class FirestoreMethods {
       print(err.toString());
     }
   }
+
+  /// Follows or unfollows a user based on the provided user ID and follow ID.
+  ///
+  /// If the user is already following the specified follow ID, this function will unfollow the user.
+  /// Otherwise, it will follow the user.
+  ///
+  /// Parameters:
+  /// - [uid]: The user ID of the current user.
+  /// - [followId]: The user ID of the user to follow/unfollow.
+  ///
+  /// Throws an exception if an error occurs during the process.
+  Future<void> followUser(
+    String uid,
+    String followId,
+  ) async {
+    try {
+      DocumentSnapshot snap =
+          await _firestore.collection('users').doc(uid).get();
+      List following = (snap.data()! as dynamic)['following'];
+
+      if (following.contains(followId)) {
+        await _firestore.collection('users').doc(followId).update({
+          'followers': FieldValue.arrayRemove([uid])
+        });
+
+        await _firestore.collection('users').doc(uid).update({
+          'following': FieldValue.arrayRemove([followId])
+        });
+      } else {
+        await _firestore.collection('users').doc(followId).update({
+          'followers': FieldValue.arrayUnion([uid])
+        });
+
+        await _firestore.collection('users').doc(uid).update({
+          'following': FieldValue.arrayUnion([followId])
+        });
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
