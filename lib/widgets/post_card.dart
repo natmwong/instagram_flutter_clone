@@ -118,7 +118,7 @@ class _PostCardState extends State<PostCard> {
               ],
             ),
           ),
-          // IMAG SECTION
+          // IMAGE SECTION
           GestureDetector(
             onDoubleTap: () async {
               await FirestoreMethods().likePost(
@@ -258,7 +258,14 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () =>
+                    Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CommentsScreen(
+                        snap: widget.snap,
+                      ),
+                    ),
+                  ),
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(

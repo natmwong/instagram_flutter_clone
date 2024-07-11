@@ -1,4 +1,6 @@
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
+import "package:instagram_flutter/resources/firestore_methods.dart";
 import "package:intl/intl.dart";
 
 class CommentCard extends StatefulWidget {
@@ -59,10 +61,34 @@ class _CommentCardState extends State<CommentCard> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(9),
-            child: const Icon(
-              Icons.favorite,
-              size: 16,
+            padding: const EdgeInsets.all(2),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () async{
+                    await FirestoreMethods().likeComment(widget.snap['postId'], widget.snap['commentId'], FirebaseAuth.instance.currentUser!.uid, widget.snap['likes'],);
+                  },
+                  icon: widget.snap['likes'].contains(widget.snap['uid']) ?
+                    const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 20,
+                  ): const Icon(
+                      Icons.favorite_border,
+                      size: 20,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 0),
+                  child: Text(
+                    '${widget.snap['likes'].length} likes',
+                    style:
+                      const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
