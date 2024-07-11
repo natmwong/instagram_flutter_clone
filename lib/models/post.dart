@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+/// Represents a post in the Instagram app.
 class Post {
   final String description;
   final String uid;
@@ -10,6 +10,7 @@ class Post {
   final String profImage;
   final likes;
 
+  /// Constructs a [Post] object.
   const Post({
     required this.description,
     required this.uid,
@@ -18,9 +19,10 @@ class Post {
     required this.datePublished,
     required this.postUrl,
     required this.profImage,
-    required this.likes
+    required this.likes,
   });
 
+  /// Converts the [Post] object to a JSON representation.
   Map<String, dynamic> toJson() => {
         "description": description,
         "uid": uid,
@@ -32,6 +34,7 @@ class Post {
         "likes": likes,
       };
 
+  /// Creates a [Post] object from a [DocumentSnapshot].
   static Post fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+/// Represents a user in the application.
 class User {
   final String email;
   final String uid;
@@ -9,6 +9,7 @@ class User {
   final List followers;
   final List following;
 
+  /// Constructs a new [User] instance.
   const User({
     required this.email,
     required this.uid,
@@ -19,6 +20,7 @@ class User {
     required this.following,
   });
 
+  /// Converts the [User] object to a JSON representation.
   Map<String, dynamic> toJson() => {
         "email": email,
         "uid": uid,
@@ -29,6 +31,7 @@ class User {
         "following": following,
       };
 
+  /// Creates a [User] object from a [DocumentSnapshot].
   static User fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 

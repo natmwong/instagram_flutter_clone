@@ -25,10 +25,13 @@ class FeedScreen extends StatelessWidget {
           ),
         ],
       ),
+      /// Builds the body of the feed screen with a stream builder that listens to changes in the 'posts' collection in Firestore.
+      /// It displays a circular progress indicator while waiting for the connection state to change to 'waiting'.
+      /// Once the connection state is no longer 'waiting', it builds a ListView using the data from the snapshot.
+      /// Each item in the ListView is rendered using the PostCard widget, passing the data from the snapshot.
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-        builder: (context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+        builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }

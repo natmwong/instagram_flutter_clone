@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_flutter/utils/colors.dart';
 import 'package:instagram_flutter/utils/global_variables.dart';
 
+/// A widget that represents the layout for mobile screens.
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({super.key});
 
@@ -26,10 +27,12 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     pageController.dispose();
   }
 
+  /// Navigates to the specified page.
   void navigationTapped(int page) {
     pageController.jumpToPage(page);
   }
 
+  /// Called when the page changes.
   void onPageChanged(int page) {
     setState(() {
       _page = page;

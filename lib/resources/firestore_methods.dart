@@ -7,7 +7,19 @@ import 'package:uuid/uuid.dart';
 class FirestoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // upload post
+  /// Uploads a post to Firestore.
+  ///
+  /// Parameters:
+  /// - [description]: The description of the post.
+  /// - [file]: The image file of the post.
+  /// - [uid]: The user ID of the post creator.
+  /// - [username]: The username of the post creator.
+  /// - [profImage]: The profile image URL of the post creator.
+  ///
+  /// Returns:
+  /// - A [Future] that completes with a [String] indicating the result of the upload.
+  ///   - If the upload is successful, the [String] will be "success".
+  ///   - If an error occurs, the [String] will contain the error message.
   Future<String> uploadPost(
     String description,
     Uint8List file,
@@ -40,6 +52,12 @@ class FirestoreMethods {
     return res;
   }
 
+  /// Likes or unlikes a post.
+  ///
+  /// Parameters:
+  /// - [postId]: The ID of the post.
+  /// - [uid]: The user ID of the liker.
+  /// - [likes]: The list of user IDs who have liked the post.
   Future<void> likePost(String postId, String uid, List likes) async {
     try {
       if (likes.contains(uid)) {
@@ -58,6 +76,14 @@ class FirestoreMethods {
     }
   }
 
+  /// Posts a comment on a post.
+  ///
+  /// Parameters:
+  /// - [postId]: The ID of the post.
+  /// - [text]: The text of the comment.
+  /// - [uid]: The user ID of the commenter.
+  /// - [name]: The name of the commenter.
+  /// - [profilePic]: The profile picture URL of the commenter.
   Future<void> postComment(String postId, String text, String uid, String name,
       String profilePic) async {
     try {
@@ -86,6 +112,13 @@ class FirestoreMethods {
     }
   }
 
+  /// Likes or unlikes a comment.
+  ///
+  /// Parameters:
+  /// - [postId]: The ID of the post.
+  /// - [commentId]: The ID of the comment.
+  /// - [uid]: The user ID of the liker.
+  /// - [likes]: The list of user IDs who have liked the comment.
   Future<void> likeComment(String postId, String commentId, String uid, List likes) async {
     try {
       if (likes.contains(uid)) {
@@ -104,6 +137,10 @@ class FirestoreMethods {
     }
   }
 
+  /// Deletes a post.
+  ///
+  /// Parameters:
+  /// - [postId]: The ID of the post to delete.
   Future<void> deletePost(String postId) async {
     try {
       await _firestore.collection('posts').doc(postId).delete();
@@ -120,8 +157,6 @@ class FirestoreMethods {
   /// Parameters:
   /// - [uid]: The user ID of the current user.
   /// - [followId]: The user ID of the user to follow/unfollow.
-  ///
-  /// Throws an exception if an error occurs during the process.
   Future<void> followUser(
     String uid,
     String followId,

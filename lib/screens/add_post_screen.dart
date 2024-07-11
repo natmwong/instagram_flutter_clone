@@ -8,6 +8,7 @@ import "package:instagram_flutter/utils/colors.dart";
 import "package:instagram_flutter/utils/utils.dart";
 import "package:provider/provider.dart";
 
+/// A screen for adding a new post.
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({super.key});
 
@@ -20,6 +21,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
   final TextEditingController _descriptionController = TextEditingController();
   bool _isLoading = false;
 
+  /// Posts the image to the server.
+  ///
+  /// Parameters:
+  /// - [uid]: The user ID.
+  /// - [username]: The username.
+  /// - [profImage]: The profile image.
   void postImage(
     String uid,
     String username,
@@ -48,7 +55,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
     }
   }
 
-  _selectImage(BuildContext context) async {
+  /// Shows a dialog to select an image from the camera or gallery.
+  ///
+  /// Parameters:
+  /// - [context]: The build context.
+  Future<void> _selectImage(BuildContext context) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -93,6 +104,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
         });
   }
 
+  /// Clears the selected image.
   void clearImage() {
     setState(() {
       _file = null;

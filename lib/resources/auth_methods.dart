@@ -83,7 +83,7 @@ class AuthMethods {
     return res;
   }
 
-  // loggin in user
+  // log in user
   Future<String> loginUser({
     required String email,
     required String password,
